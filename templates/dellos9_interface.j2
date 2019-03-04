@@ -40,7 +40,7 @@ dellos_interface:
 {% for key in dellos_interface.keys() %}
   {% set intf_vars  = dellos_interface[key] %}
   {% set intf = key.split(" ") %}
-  {% set port = intf[1].split('/') %}
+  {% set port = intf[0].split('/') %}
   {% if intf_vars.fanout is defined %}
     {% if intf_vars.fanout %}
       {% if intf_vars.fanout_state is defined and intf_vars.fanout_state == "present" %}
@@ -58,7 +58,7 @@ no stack-unit {{ port[0] }} port {{ port[1] }} portmode {{ intf_vars.fanout }} n
 {% for key in dellos_interface.keys() %}
 {% set intf_vars  = dellos_interface[key] %}
 {% set intf = key.split(" ") %}
-{% set port = intf[1].split('/') %}
+{% set port = intf[0].split('/') %}
   {% if (intf_vars.fanout is defined and not intf_vars.fanout) or (intf_vars.fanout is not defined)%}
 interface {{ key }}
     {% if intf_vars.desc is defined %}
