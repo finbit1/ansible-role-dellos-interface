@@ -32,6 +32,12 @@ Role variables
 | ``desc``  | string         | Configures a single line interface description  | dellos6, dellos9, dellos10 |
 | ``portmode`` | string | Configures port-mode according to the device type | dellos6 (access and trunk), dellos9 (hybrid), dellos10  |
 | ``switchport`` | boolean: true,false\*  | Configures an interface in L2 mode |  dellos9, dellos10 |
+| ``port_sec`` | list  | configures Port Security (Mac Learn-limit) settings on an interface. If not defined remove any configured security.  |  dellos9 |
+| ``port_sec.limit`` | integer  | configures the number of macs to limit on interface (1-1000000)  |  dellos9 |
+| ``port_sec.type`` | string: dynamic,sticky  | Configures whether the switch should allow aging of dynmicly learned address or permanently learn ther mac address  |  dellos9 |
+| ``port_sec.stn_move`` | boolean:true,false\*  | Sets whether to allow a station move on learned MAC addresses.  |  dellos9 |
+| ``port_sec.ll_violation`` | string: log,shutdown | set the port action if a learn-limit violation occurs  |  dellos9 |
+| ``port_sec.sm_violation`` | string: log,shutdown-both,shutdown-offending,shutdown-original | Set action if a Station move violation occurs  |  dellos9 |
 | ``admin``      | string: up,down\*              | Configures the administrative state for the interface; configuring the value as administratively "up" enables the interface; configuring the value as administratively "down" disables the interface | dellos6, dellos9, dellos10 |
 | ``mtu``        | integer                       | Configures the MTU size for L2 and L3 interfaces; example, MTU range is 594 to 12000 for dellos9 devices, 1280 to 65535 on dellos10 devices, and set globally on dellos6 devices | dellos9, dellos10 |
 | ``fanout``     | string:dual, single, quad (dellos9); string:10g-4x, 40g-1x, 25g-4x, 100g-1x, 50g-2x (dellos10)   | Configures fanout to the appropriate value in dellos* devices.| dellos9, dellos10 |

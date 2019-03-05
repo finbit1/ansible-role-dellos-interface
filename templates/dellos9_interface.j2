@@ -28,6 +28,22 @@ dellos_interface:
             remote_id: hostname
             speed: auto
             duplex: half
+            port_sec:
+              limit: 1
+              type: dynamic
+              stn_move: true
+    GigabitEthernet 1/3:
+            desc: "Access port"
+            portmode: access
+            switchport: true
+            admin: up
+            auto_neg: true
+            speed: auto
+            port_sec:
+              limit: 1
+              type: dynamic
+              stn_move: true
+              ll_violation: shutdown
     fortyGigE 1/1:
             fanout: single
             fanout_speed: 40G
@@ -86,7 +102,35 @@ interface {{ key }}
       {% endif %}
       {% if intf_vars.portmode is not defined %}
         {% if intf_vars.switchport is defined and intf_vars.switchport == False %}
+ no mac learn-limit
  no switchport
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+    {% if intf_vars.switchport is defined %}
+      {% if intf_vars.switchport == True %}
+        {% if intf_vars.port_sec is defined %}
+          {% if intf_vars.port_sec.stn_move is defined and intf_vars.port_sec.stn_move == True %}
+            {% if intf_vars.port_sec.limit is defined and intf_vars.port_sec.limit and intf_vars.port_sec.type is defined and intf_vars.port_sec.type %}
+              mac learning-limit {{ intf_vars.port_sec.limit }} {{ intf_vars.port_sec.type }} station-move dynamic
+            {% elif intf_vars.port_sec.limit is defined and intf_vars.port_sec.limit %}
+              mac learning-limit {{ intf_vars.port_sec.limit }} station-move dynamic
+            {% endif %}
+          {% else %}
+            {% if intf_vars.port_sec.limit is defined and intf_vars.port_sec.limit and intf_vars.port_sec.type is defined and intf_vars.port_sec.type %}
+              mac learning-limit {{ intf_vars.port_sec.limit }} {{ intf_vars.port_sec.type }}
+            {% elif intf_vars.port_sec.limit is defined and intf_vars.port_sec.limit %}
+              mac learning-limit {{ intf_vars.port_sec.limit }}
+            {% endif %}
+          {% endif %}
+          {% if intf_vars.port_sec.ll_violation is defined and intf_vars.port_sec.ll_violation %}
+            mac learning-limit learn-limit-violation {{ intf_vars.port_sec.ll_violation }}
+          {% elif intf_vars.port_sec.sm_violation is defined and intf_vars.port_sec.sm_violation %}
+            mac learning-limit station-move-violation {{ intf_vars.port_sec.sm_violation }}
+          {% endif %}
+        {% elif intf_vars.port_sec is not defined %}
+          no mac learning-limit
         {% endif %}
       {% endif %}
     {% endif %}
