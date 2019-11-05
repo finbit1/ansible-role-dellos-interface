@@ -113,7 +113,7 @@ interface {{ key }}
         {% if intf_vars.port_sec is defined %}
           {% if intf_vars.port_sec.stn_move is defined and intf_vars.port_sec.stn_move == True %}
             {% if intf_vars.port_sec.limit is defined and intf_vars.port_sec.limit and intf_vars.port_sec.type is defined and intf_vars.port_sec.type %}
-              mac learning-limit {{ intf_vars.port_sec.limit }} {{ intf_vars.port_sec.type }} station-move dynamic
+              mac learning-limit {{ intf_vars.port_sec.limit }} {{ intf_vars.port_sec.type }} station-move
             {% elif intf_vars.port_sec.limit is defined and intf_vars.port_sec.limit %}
               mac learning-limit {{ intf_vars.port_sec.limit }} station-move dynamic
             {% endif %}
