@@ -76,7 +76,7 @@ no stack-unit {{ port[0] }} port {{ port[1] }} portmode {{ intf_vars.fanout }} n
 {% set intf = key.split(" ") %}
 {% set port = intf[0].split('/') %}
   {% if (intf_vars.fanout is defined and not intf_vars.fanout) or (intf_vars.fanout is not defined)%}
-    {% if intf_vars.deafult is defined and intf_vars.default == True %}
+    {% if intf_vars.default is defined and intf_vars.default == True %}
 default interface {{ key }}
     {% endif %}
 interface {{ key }}
