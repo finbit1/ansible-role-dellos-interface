@@ -88,6 +88,19 @@ interface {{ key }}
       {% endif %}
     {% endif %}
   
+    {% if intf_vars.flowcontrol is defined %}
+      {% if intf_vars.flowcontrol.rx is defined and intf_vars.flowcontrol.tx is defined %}
+        {% if intf_vars.flowcontrol.rx == "on" and intf_vars.flowcontrol.tx =="on" %}
+flowcontrol rx {{ intf_vars.flowcontrol.rx }} tx {{ intf_vars.flowcontrol.tx }}
+        {% endif %}
+      {% elseif intf_vars.flowcontrol.rx is defined and intf_vars.flowcontrol.rx == "on" %}
+flowcontrol rx {{ intf_vars.flowcontrol.rx }} tx off
+      {% elseif intf_vars.flowcontrol.tx is defined and intf_vars.flowcontrol.tx == "on" %}
+flowcontrol rx off tx {{ intf_vars.flowcontrol.tx }}
+      {% endif %}
+    {% else %}
+flowcontrol rx off tx off
+    {% endif %}
     {% if intf_vars.portmode is defined %}
       {% if intf_vars.switchport is defined and intf_vars.switchport == False %}
  no switchport
