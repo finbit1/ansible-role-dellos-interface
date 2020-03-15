@@ -89,14 +89,16 @@ interface {{ key }}
     {% endif %}
   
     {% if intf_vars.flowcontrol is defined %}
-      {% if intf_vars.flowcontrol.rx is defined and intf_vars.flowcontrol.tx is defined %}
-        {% if intf_vars.flowcontrol.rx == True and intf_vars.flowcontrol.tx ==True %}
+      {% if intf_vars.flowcontrol.state == "present" %}
+        {% if intf_vars.flowcontrol.rx is defined and intf_vars.flowcontrol.tx is defined %}
+          {% if intf_vars.flowcontrol.rx == True and intf_vars.flowcontrol.tx ==True %}
 flowcontrol rx on tx on
-        {% endif %}
-      {% elif intf_vars.flowcontrol.rx is defined and intf_vars.flowcontrol.rx == True %}
+          {% endif %}
+        {% elif intf_vars.flowcontrol.rx is defined and intf_vars.flowcontrol.rx == True %}
 flowcontrol rx on tx off
-      {% elif intf_vars.flowcontrol.tx is defined and intf_vars.flowcontrol.tx == True %}
+        {% elif intf_vars.flowcontrol.tx is defined and intf_vars.flowcontrol.tx == True %}
 flowcontrol rx off tx on
+        {% endif %}
       {% else %}
 flowcontrol rx off tx off
       {% endif %}
