@@ -64,6 +64,10 @@ Role variables
 | ``ip_helper`` | list | Configures DHCP server address objects (see ``ip_helper.*``) | dellos6, dellos9, dellos10 |
 | ``ip_helper.ip`` | string (required)         | Configures the IPv4 address of the DHCP server (A.B.C.D format)  | dellos6, dellos9, dellos10 |
 | ``ip_helper.state`` | string: absent,present\* | Deletes the IP helper address if set to absent           | dellos6, dellos9, dellos10 |
+| ``flocontrol`` | dictionary | Configures configures flow control on the interface. Only configure on physical interfaces. Logical interfaces will error out | dellos9 |
+| ``flowcontrol.rx`` | Boolean: on, off         | configures floxcontrol rx  | dellos9 |
+| ``flowcontrol.tx`` | Boolean: on, off         | configures floxcontrol tx  | dellos9 |
+| ``flowcontrol.state`` | string: absent,present | Sets to defaults if absent           | dellos9 |
 
 > **NOTE**: Asterisk (*) denotes the default value if none is specified.
 
