@@ -117,6 +117,8 @@ When *dellos_cfg_generate* is set to true, the variable generates the configurat
     build_dir: ../temp/dellos9
 
     dellos_interface:
+        TenGigabitEthernet 1/5:
+          default: true
         TenGigabitEthernet 1/8:
           desc: "Connected to Spine1"
           portmode:
@@ -134,6 +136,9 @@ When *dellos_cfg_generate* is set to true, the variable generates the configurat
           class_vendor_identifier: present
           option82: true
           remote_id: hostname
+          flowcontrol:
+            rx: on
+            state: present
         fortyGigE 1/9:
           desc: "Connected to Spine2"
           switchport: False
