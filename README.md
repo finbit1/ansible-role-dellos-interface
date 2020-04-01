@@ -29,7 +29,7 @@ Role variables
 
 | Key        | Type                      | Description                                             | Support               |
 |------------|---------------------------|---------------------------------------------------------|-----------------------|
-| ``default``  | boolean: true,false  | Defauts the interface. This occurs after fanout but before all other interface configuration.  | dellos9 |
+| ``default``  | boolean: true,false         | Defaults the interface. This occurs after fanout and before all other interface configuration.  | dellos9 |
 | ``desc``  | string         | Configures a single line interface description  | dellos6, dellos9, dellos10 |
 | ``portmode`` | string | Configures port-mode according to the device type | dellos6 (access and trunk), dellos9 (hybrid), dellos10  |
 | ``switchport`` | boolean: true,false\*  | Configures an interface in L2 mode |  dellos9, dellos10 |
